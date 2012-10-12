@@ -207,8 +207,7 @@ class ActsAsArchive
         @mutex ||= Mutex.new
         @mutex.synchronize do
           unless ActsAsArchive.disabled
-            bdup = binds.dup
-            sql = to_sql(arel, bdup)
+            sql = to_sql(arel)
 
             from, where = /DELETE FROM (.+)/i.match(sql)[1].split(/\s+WHERE\s+/i, 2)
             from = from.strip.gsub(/[`"]/, '').split(/\s*,\s*/)
